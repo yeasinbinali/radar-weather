@@ -31,13 +31,13 @@ const DisplayWeather = ({ currentWeather, forecastWeather }) => {
                     </div>
                 </div>
                 <div className='w-[50%]'>
-                    <p className='flex justify-between text-xl'>Weather Latitude: <b>{currentWeather.coord.lat}</b></p>
+                    <p className='flex justify-between text-xl py-1'>Weather Latitude: <b>{currentWeather.coord.lat}</b></p>
                     <hr />
-                    <p className='flex justify-between text-xl'>Wind: <b>E {currentWeather.wind.deg} km/h</b></p>
+                    <p className='flex justify-between text-xl py-1'>Wind: <b>E {currentWeather.wind.deg} km/h</b></p>
                     <hr />
-                    <p className='flex justify-between text-xl'>Wind Gust: <b>{currentWeather.wind.gust} km/h</b></p>
+                    <p className='flex justify-between text-xl py-1'>Wind Gust: <b>{currentWeather.wind.gust} km/h</b></p>
                     <hr />
-                    <p className='flex justify-between text-xl'>Humidity: <b>{currentWeather.main.humidity}%</b></p>
+                    <p className='flex justify-between text-xl py-1'>Humidity: <b>{currentWeather.main.humidity}%</b></p>
                     <hr />
                 </div>
             </div>
