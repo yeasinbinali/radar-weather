@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { TiWeatherCloudy, TiWeatherNight, TiWeatherShower, TiWeatherSnow } from 'react-icons/ti';
+import { FiCloudRain } from 'react-icons/fi';
+import { TiWeatherCloudy, TiWeatherNight, TiWeatherSnow } from 'react-icons/ti';
 
-const DisplayWeather = ({ currentWeather, forecastWeather }) => {
+const DisplayWeather = ({ currentWeather }) => {
     const [currentTime, setCurrentTime] = useState(new Date());
-    console.log(forecastWeather)
 
     useEffect(() => {
         const timerId = setInterval(() => {
@@ -13,10 +13,10 @@ const DisplayWeather = ({ currentWeather, forecastWeather }) => {
     }, [])
 
     return (
-        <div className='w-[70%] mx-auto'>
+        <div>
             <h1 className='text-3xl text-center mb-5'>Search city: <span className='font-bold'>"{currentWeather.name}"</span></h1>
-            <div className='bg-[#ededff98]'>
-                <div className='flex justify-between items-center border-b-[1px] border-[gray] p-5'>
+            <div className='bg-main'>
+                <div className='flex justify-between items-center border-b-[1px] border-second p-5'>
                     <p className='uppercase'>Current Weather</p>
                     <p><b>{currentTime.toLocaleTimeString()}</b></p>
                 </div>
@@ -25,7 +25,7 @@ const DisplayWeather = ({ currentWeather, forecastWeather }) => {
                     <div className='flex items-center gap-1 w-[50%]'>
                         <div>
                             {currentWeather.weather[0].main === 'Clouds' && <TiWeatherCloudy className='text-7xl' />}
-                            {currentWeather.weather[0].main === 'Rain' && <TiWeatherShower className='text-7xl' />}
+                            {currentWeather.weather[0].main === 'Rain' && <FiCloudRain   className='text-7xl' />}
                             {currentWeather.weather[0].main === 'Clear' && <TiWeatherNight className='text-7xl' />}
                             {currentWeather.weather[0].main === 'Haze' && <TiWeatherSnow className='text-7xl' />}
                         </div>
@@ -36,14 +36,14 @@ const DisplayWeather = ({ currentWeather, forecastWeather }) => {
                         </div>
                     </div>
                     <div className='w-[50%]'>
-                        <p className='flex justify-between text-xl py-1'>Weather Latitude: <b>{currentWeather.coord.lat}</b></p>
-                        <hr />
-                        <p className='flex justify-between text-xl py-1'>Wind: <b>E {currentWeather.wind.deg} km/h</b></p>
-                        <hr />
-                        <p className='flex justify-between text-xl py-1'>Wind Gust: <b>{currentWeather.wind.gust} km/h</b></p>
-                        <hr />
-                        <p className='flex justify-between text-xl py-1'>Humidity: <b>{currentWeather.main.humidity}%</b></p>
-                        <hr />
+                        <p className='flex justify-between text-xl py-1 border-b-[1px] border-second'>Weather Latitude: <b>{currentWeather.coord.lat}</b></p>
+                        {/* <hr /> */}
+                        <p className='flex justify-between text-xl py-1 border-b-[1px] border-second'>Wind: <b>E {currentWeather.wind.speed} km/h</b></p>
+                        {/* <hr /> */}
+                        <p className='flex justify-between text-xl py-1 border-b-[1px] border-second'>Wind Gust: <b>{currentWeather.wind.gust} km/h</b></p>
+                        {/* <hr /> */}
+                        <p className='flex justify-between text-xl py-1 border-b-[1px] border-second'>Humidity: <b>{currentWeather.main.humidity}%</b></p>
+                        {/* <hr /> */}
                     </div>
                 </div>
             </div>

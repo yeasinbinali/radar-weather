@@ -3,6 +3,7 @@ import SearchFunction from '../SearchFunction/SearchFunction';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import DisplayWeather from '../DisplayWeather/DisplayWeather';
+import ForecastWeather from '../ForecastWeather/ForecastWeather';
 
 const WeatherDashboard = () => {
     const [currentCity, setCurrentCity] = useState('');
@@ -49,6 +50,10 @@ const WeatherDashboard = () => {
             {currentWeather && (
                 <DisplayWeather
                     currentWeather={currentWeather}
+                />
+            )}
+            {currentWeather && (
+                <ForecastWeather
                     forecastWeather={forecastWeather}
                 />
             )}
