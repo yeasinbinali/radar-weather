@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TiWeatherCloudy, TiWeatherNight, TiWeatherShower, TiWeatherSnow } from 'react-icons/ti';
 
-const DisplayWeather = ({ currentWeather }) => {
-    console.log(currentWeather);
-    // console.log(currentWeather.weather[0].main);
+const DisplayWeather = ({ currentWeather, forecastWeather }) => {
+    const [currentTime, setCurrentTime] = useState(new Date())
+    useEffect(() => {
+        const timerId = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000)
+        // return () => clearInterval(timerId);
+    }, [])
+
     return (
         <div className='w-[70%] mx-auto bg-[#fcebeb]'>
-            <div className='flex justify-between items-center border-b-[1px] p-5'>
-                <p>Current Weather</p>
-                <p><b>{currentWeather.name}</b></p>
+            <div className='flex justify-between items-center border-b-[1px] border-[gray] p-5'>
+                <p className='uppercase'>Current Weather</p>
+                <p><b>{currentTime.toLocaleTimeString()}</b></p>
             </div>
             {/* current weather details */}
             <div className='flex justify-between items-center p-5'>
