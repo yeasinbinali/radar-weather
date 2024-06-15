@@ -4,9 +4,9 @@ import { TiWeatherCloudy, TiWeatherNight, TiWeatherSnow } from 'react-icons/ti';
 import { FiCloudRain } from 'react-icons/fi';
 import { MdDelete } from 'react-icons/md';
 
-const FavouriteCity = () => {
+const FavouriteCity = ({ handleListDelete }) => {
     const [favouriteList] = useFavourite();
-    console.log(favouriteList);
+
     return (
         <div className='mb-10'>
             <h1 className='text-3xl font-bold text-center mb-10'>Favourite city</h1>
@@ -16,7 +16,7 @@ const FavouriteCity = () => {
                         <div>
                             <div className='p-3 border-b-[1px] border-second flex justify-between items-center'>
                                 <p className='font-bold'>{list.name}</p>
-                                <button><MdDelete className='text-2xl'/></button>
+                                <button onClick={() => handleListDelete(list._id)}><MdDelete className='text-2xl' /></button>
                             </div>
                             <div className='flex items-center gap-1 border-b-[1px] border-second p-3'>
                                 <div>

@@ -65,6 +65,39 @@ const WeatherDashboard = () => {
             })
     }
 
+    const handleListDelete = (_id) => {
+        console.log('clicked', _id);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const url = `http://localhost:5000/favouriteList/${_id}`
+                fetch(url)
+                    .then(res => res.json())
+                    .then(data => {
+                        axios.delete(`http://localhost:5000/favouriteList/${data._id}`, data)
+                            .then(res => {
+                                if (res.data.deletedCount > 0) {
+                                    Swal.fire({
+                                        title: "Deleted!",
+                                        text: "Your favourite country has been deleted.",
+                                        icon: "success"
+                                    });
+                                    refetch();
+                                }
+                            })
+                    })
+
+            }
+        });
+    }
+
     return (
         <div>
             <SearchFunction onSearch={handleSearch} />
@@ -79,7 +112,9 @@ const WeatherDashboard = () => {
                     forecastWeather={forecastWeather}
                 />
             )}
-            <FavouriteCity></FavouriteCity>
+            <FavouriteCity
+                handleListDelete={handleListDelete}
+            ></FavouriteCity>
         </div>
     );
 };
