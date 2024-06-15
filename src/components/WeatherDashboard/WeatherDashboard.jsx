@@ -8,7 +8,7 @@ import FavouriteCity from '../FavouriteCity/FavouriteCity';
 import useFavourite from '../hooks/useFavourite';
 
 const WeatherDashboard = () => {
-    const [, refetch] = useFavourite();
+    const [favouriteList, refetch] = useFavourite();
     const [currentCity, setCurrentCity] = useState('');
     const [currentWeather, setCurrentWeather] = useState(null);
     const [forecastWeather, setForecastWeather] = useState([]);
@@ -24,8 +24,7 @@ const WeatherDashboard = () => {
 
             const forecastWeatherResponse = await axios.get(forecastWeatherURL);
 
-            // Correctly filter the forecast data to get daily entries
-            const dailyForecast = forecastWeatherResponse.data.list.filter((entry, index) => index % 8 === 0);
+            const dailyForecast = forecastWeatherResponse.data.list.filter((index) => index % 8 === 0);
             setForecastWeather(dailyForecast);
         } catch (error) {
             Swal.fire({
@@ -52,21 +51,30 @@ const WeatherDashboard = () => {
         const currentWeatherList = await axios.get(url);
         const currentWeatherListData = currentWeatherList.data;
 
-        axios.post('http://localhost:5000/favouriteList', currentWeatherListData)
-            .then(res => {
-                if (res.data.acknowledged) {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Successfully added",
-                        text: `${currentWeatherListData.name} has added to the favourite list`
-                    });
-                    refetch();
-                }
-            })
+        const listedData = favouriteList.filter(favouriteListed => favouriteListed.name === currentWeatherListData.name)
+
+        if (!listedData) {
+            axios.post('http://localhost:5000/favouriteList', currentWeatherListData)
+                .then(res => {
+                    if (res.data.acknowledged) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Successfully added",
+                            text: `${currentWeatherListData.name} has added to the favourite list`
+                        });
+                        refetch();
+                    }
+                })
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "This country has already been added"
+            });
+        }
     }
 
     const handleListDelete = (_id) => {
-        console.log('clicked', _id);
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",

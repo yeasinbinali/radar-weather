@@ -6,7 +6,6 @@ const SearchFunction = ({ onSearch }) => {
 
     const onSubmit = (data) => {
         const city = data.search;
-        console.log(city)
         if (city) {
             onSearch(city);
         }

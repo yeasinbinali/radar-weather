@@ -4,6 +4,9 @@ import { TiWeatherCloudy, TiWeatherNight, TiWeatherSnow } from 'react-icons/ti';
 
 const DisplayWeather = ({ currentWeather, handleList }) => {
     const [currentTime, setCurrentTime] = useState(new Date());
+    const [isChecked, setIsChecked] = useState(true);
+    const [weatherFahrenheit, setWeatherFahrenheit] = useState('');
+    const [feelsLikeFahrenheit, setFeelsLikeFahrenheit] = useState('');
 
     useEffect(() => {
         const timerId = setInterval(() => {
@@ -11,6 +14,19 @@ const DisplayWeather = ({ currentWeather, handleList }) => {
         }, 1000)
         return () => clearInterval(timerId);
     }, [])
+
+    const handleToggle = () => {
+        setIsChecked(!isChecked)
+        if (isChecked) {
+            const celcius = currentWeather.main.temp.toString().slice(0, 2);
+            const fahrenheit = (celcius * 9 / 5) + 32;
+            setWeatherFahrenheit(fahrenheit);
+
+            const feelsLikeCelcius = currentWeather.main.feels_like;
+            const feelsLikeFahrenheit = (feelsLikeCelcius * 9 / 5) + 32;
+            setFeelsLikeFahrenheit(feelsLikeFahrenheit);
+        }
+    }
 
     return (
         <div>
@@ -23,16 +39,19 @@ const DisplayWeather = ({ currentWeather, handleList }) => {
                 {/* current weather details */}
                 <div className='flex justify-between items-center p-5'>
                     <div className='flex items-center gap-1 w-[50%]'>
-                        <div>
+                        <div className='flex flex-col items-center'>
                             {currentWeather.weather[0].main === 'Clouds' && <TiWeatherCloudy className='text-7xl' />}
                             {currentWeather.weather[0].main === 'Rain' && <FiCloudRain className='text-7xl' />}
                             {currentWeather.weather[0].main === 'Clear' && <TiWeatherNight className='text-7xl' />}
                             {currentWeather.weather[0].main === 'Haze' && <TiWeatherSnow className='text-7xl' />}
+                            {currentWeather.weather[0].main === 'Mist' && <TiWeatherSnow className='text-7xl' />}
+                            <input onChange={handleToggle} checked={isChecked} type="checkbox" className="toggle" />
                         </div>
                         <div className='flex flex-col'>
-                            <h1 className='text-7xl'>{currentWeather.main.temp.toString().slice(0, 2)}°<span className='text-5xl'>C</span></h1>
+                            {!isChecked ? <h1 className='text-7xl'>{weatherFahrenheit.toString().slice(0, 4)}°<span className='text-5xl'>F</span></h1> : <h1 className='text-7xl'>{currentWeather.main.temp.toString().slice(0, 4)}°<span className='text-5xl'>C</span></h1>}
+
                             {/* <h1 className='text-7xl font-bold flex'>{currentWeather.main.temp.toString().slice(0, 2)}<small className='flex flex-col justify-start'>&deg;</small><small className='text-2xl flex justify-end flex-col text-[gray]'>C</small></h1> */}
-                            <p className='text-xl'>RealFeel {currentWeather.main.feels_like}</p>
+                            {!isChecked ? <p className='text-xl'>RealFeel {feelsLikeFahrenheit.toString().slice(0, 4)}</p> : <p className='text-xl'>RealFeel {currentWeather.main.feels_like}</p>}
                         </div>
                     </div>
                     <div className='w-[50%]'>

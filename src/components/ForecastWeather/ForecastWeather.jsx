@@ -3,7 +3,6 @@ import { FiCloudRain } from 'react-icons/fi';
 import { TiWeatherCloudy, TiWeatherNight, TiWeatherSnow } from 'react-icons/ti';
 
 const ForecastWeather = ({ forecastWeather }) => {
-    console.log(forecastWeather);
     return (
         <div className='mb-10'>
             <h1 className='text-3xl font-bold text-center my-10'>5-day forecast</h1>
