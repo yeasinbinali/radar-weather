@@ -14,7 +14,7 @@ const SearchFunction = ({ onSearch }) => {
     }
 
     return (
-        <div className='mt-10 mb-5'>
+        <div className='my-10'>
             <form className='text-center' onSubmit={handleSubmit(onSubmit)}>
                 <input className='border-[1px] border-black p-1 w-[50%]' placeholder='Search your city' {...register("search")} />
                 <input className='border-[1px] border-black p-1 cursor-pointer' type="submit" />

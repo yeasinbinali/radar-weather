@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FiCloudRain } from 'react-icons/fi';
 import { TiWeatherCloudy, TiWeatherNight, TiWeatherSnow } from 'react-icons/ti';
 
-const DisplayWeather = ({ currentWeather }) => {
+const DisplayWeather = ({ currentWeather, handleList }) => {
     const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
@@ -14,7 +14,7 @@ const DisplayWeather = ({ currentWeather }) => {
 
     return (
         <div>
-            <h1 className='text-3xl text-center mb-5'>Search city: <span className='font-bold'>"{currentWeather.name}"</span></h1>
+            <h1 className='text-3xl text-center mb-10'>Search city: <span className='font-bold'>"{currentWeather.name}"</span></h1>
             <div className='bg-main'>
                 <div className='flex justify-between items-center border-b-[1px] border-second p-5'>
                     <p className='uppercase'>Current Weather</p>
@@ -25,7 +25,7 @@ const DisplayWeather = ({ currentWeather }) => {
                     <div className='flex items-center gap-1 w-[50%]'>
                         <div>
                             {currentWeather.weather[0].main === 'Clouds' && <TiWeatherCloudy className='text-7xl' />}
-                            {currentWeather.weather[0].main === 'Rain' && <FiCloudRain   className='text-7xl' />}
+                            {currentWeather.weather[0].main === 'Rain' && <FiCloudRain className='text-7xl' />}
                             {currentWeather.weather[0].main === 'Clear' && <TiWeatherNight className='text-7xl' />}
                             {currentWeather.weather[0].main === 'Haze' && <TiWeatherSnow className='text-7xl' />}
                         </div>
@@ -45,6 +45,9 @@ const DisplayWeather = ({ currentWeather }) => {
                         <p className='flex justify-between text-xl py-1 border-b-[1px] border-second'>Humidity: <b>{currentWeather.main.humidity}%</b></p>
                         {/* <hr /> */}
                     </div>
+                </div>
+                <div className='flex justify-end'>
+                    <button onClick={() => handleList(currentWeather.name)} className='bg-second px-3 py-1 font-bold'>Add to List +</button>
                 </div>
             </div>
         </div>

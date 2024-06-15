@@ -5,8 +5,8 @@ import { TiWeatherCloudy, TiWeatherNight, TiWeatherSnow } from 'react-icons/ti';
 const ForecastWeather = ({ forecastWeather }) => {
     console.log(forecastWeather);
     return (
-        <div className='mb-20'>
-            <h1 className='text-3xl font-bold text-center my-5'>5-day forecast</h1>
+        <div className='mb-10'>
+            <h1 className='text-3xl font-bold text-center my-10'>5-day forecast</h1>
             <div className='grid grid-cols-3 gap-10'>
                 {forecastWeather.map((forecast, index) => <div className='bg-main' key={index}>
                     <p className='border-b-[1px] border-second p-3'>{forecast.dt_txt.slice(0, 10)}</p>
