@@ -1,8 +1,10 @@
-# React + Vite
+### Radar Weather
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+##### Feathers: 
+<ul>
+    <li>Radar Weather is a weather forecasting website.</li>
+    <li>You can search the weather of different countries or cities and see the weather forecast for the next 5 days.</li>
+    <li>You can toggle the weather of different countries in <b>Celsius</b> and <b>Fahrenheit</b>.</li>
+    <li>You can list your favorite country or city separately. However, you cannot add a country or city to the favorite list more than once.</li>
+    <li>If you want, you can delete the country or city of the favorite list.</li>
+</ul>

@@ -24,7 +24,7 @@ const WeatherDashboard = () => {
 
             const forecastWeatherResponse = await axios.get(forecastWeatherURL);
 
-            const dailyForecast = forecastWeatherResponse.data.list.filter((index) => index % 8 === 0);
+            const dailyForecast = forecastWeatherResponse.data.list.filter((entries, index) => index % 8 === 0);
             setForecastWeather(dailyForecast);
         } catch (error) {
             Swal.fire({
