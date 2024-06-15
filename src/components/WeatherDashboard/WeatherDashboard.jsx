@@ -5,8 +5,10 @@ import Swal from 'sweetalert2';
 import DisplayWeather from '../DisplayWeather/DisplayWeather';
 import ForecastWeather from '../ForecastWeather/ForecastWeather';
 import FavouriteCity from '../FavouriteCity/FavouriteCity';
+import useFavourite from '../hooks/useFavourite';
 
 const WeatherDashboard = () => {
+    const [, refetch] = useFavourite();
     const [currentCity, setCurrentCity] = useState('');
     const [currentWeather, setCurrentWeather] = useState(null);
     const [forecastWeather, setForecastWeather] = useState([]);
@@ -52,12 +54,13 @@ const WeatherDashboard = () => {
 
         axios.post('http://localhost:5000/favouriteList', currentWeatherListData)
             .then(res => {
-                if(res.data.acknowledged){
+                if (res.data.acknowledged) {
                     Swal.fire({
                         icon: "success",
                         title: "Successfully added",
                         text: `${currentWeatherListData.name} has added to the favourite list`
                     });
+                    refetch();
                 }
             })
     }
