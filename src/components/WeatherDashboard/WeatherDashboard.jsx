@@ -52,10 +52,10 @@ const WeatherDashboard = () => {
             const currentWeatherList = await axios.get(url);
             const currentWeatherListData = currentWeatherList.data;
 
-            const listedData = favouriteList?.filter(favouriteListed => favouriteListed.name === currentWeatherListData.name);
+            const listedData = favouriteList?.some(favouriteListed => favouriteListed.name === currentWeatherListData.name);
 
             if (!listedData) {
-                const response = await axios.post('https://radar-server-ten.vercel.app/favouriteList', currentWeatherListData);
+                const response = await axios.post('https://radar-server-ruddy.vercel.app/favouriteList', currentWeatherListData);
                 if (response.data.acknowledged) {
                     Swal.fire({
                         icon: "success",
@@ -92,11 +92,11 @@ const WeatherDashboard = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                const url = `https://radar-server-ten.vercel.app/favouriteList/${_id}`
+                const url = `https://radar-server-ruddy.vercel.app/favouriteList/${_id}`
                 fetch(url)
                     .then(res => res.json())
                     .then(data => {
-                        axios.delete(`https://radar-server-ten.vercel.app/favouriteList/${data._id}`, data)
+                        axios.delete(`https://radar-server-ruddy.vercel.app/favouriteList/${data._id}`, data)
                             .then(res => {
                                 if (res.data.deletedCount > 0) {
                                     Swal.fire({
