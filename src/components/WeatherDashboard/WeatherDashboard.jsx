@@ -54,8 +54,6 @@ const WeatherDashboard = () => {
 
             const listedData = favouriteList?.some(favouriteListed => favouriteListed.name === currentWeatherListData.name);
 
-            console.log(favouriteList.length)
-
             if (!listedData) {
                 const response = await axios.post('https://radar-server-ten.vercel.app/favouriteList', currentWeatherListData);
                 if (response.data.acknowledged) {
@@ -129,9 +127,9 @@ const WeatherDashboard = () => {
                     forecastWeather={forecastWeather}
                 />
             )}
-            {favouriteList?.length !== 0 && <FavouriteCity
+            <FavouriteCity
                 handleListDelete={handleListDelete}
-            ></FavouriteCity>}
+            ></FavouriteCity>
         </div>
     );
 };
