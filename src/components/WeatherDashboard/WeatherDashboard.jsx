@@ -52,7 +52,7 @@ const WeatherDashboard = () => {
             const currentWeatherList = await axios.get(url);
             const currentWeatherListData = currentWeatherList.data;
 
-            const listedData = favouriteList?.some(favouriteListed => favouriteListed.name === currentWeatherListData.name);
+            const listedData = favouriteList?.filter(favouriteListed => favouriteListed.name === currentWeatherListData.name);
 
             if (!listedData) {
                 const response = await axios.post('https://radar-server-ten.vercel.app/favouriteList', currentWeatherListData);
