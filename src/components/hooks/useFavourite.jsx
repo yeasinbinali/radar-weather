@@ -6,7 +6,7 @@ const useFavourite = () => {
     const { data: favouriteList, refetch } = useQuery({
         queryKey: ['favouriteList'],
         queryFn: async () => {
-            const res = await axios.get('http://localhost:5000/favouriteList');
+            const res = await axios.get('https://radar-server-ten.vercel.app/favouriteList');
             return res.data;
         }
     })

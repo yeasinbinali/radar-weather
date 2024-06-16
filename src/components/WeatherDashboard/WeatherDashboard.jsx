@@ -54,7 +54,7 @@ const WeatherDashboard = () => {
         const listedData = favouriteList.filter(favouriteListed => favouriteListed.name === currentWeatherListData.name)
 
         if (!listedData) {
-            axios.post('http://localhost:5000/favouriteList', currentWeatherListData)
+            axios.post('https://radar-server-ten.vercel.app/favouriteList', currentWeatherListData)
                 .then(res => {
                     if (res.data.acknowledged) {
                         Swal.fire({
@@ -85,11 +85,11 @@ const WeatherDashboard = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                const url = `http://localhost:5000/favouriteList/${_id}`
+                const url = `https://radar-server-ten.vercel.app/favouriteList/${_id}`
                 fetch(url)
                     .then(res => res.json())
                     .then(data => {
-                        axios.delete(`http://localhost:5000/favouriteList/${data._id}`, data)
+                        axios.delete(`https://radar-server-ten.vercel.app/favouriteList/${data._id}`, data)
                             .then(res => {
                                 if (res.data.deletedCount > 0) {
                                     Swal.fire({
