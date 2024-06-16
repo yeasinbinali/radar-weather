@@ -47,32 +47,41 @@ const WeatherDashboard = () => {
     };
 
     const handleList = async (name) => {
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${api_key}&units=metric`
-        const currentWeatherList = await axios.get(url);
-        const currentWeatherListData = currentWeatherList.data;
+        try {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${api_key}&units=metric`;
+            const currentWeatherList = await axios.get(url);
+            const currentWeatherListData = currentWeatherList.data;
 
-        const listedData = favouriteList.filter(favouriteListed => favouriteListed.name === currentWeatherListData.name)
+            const listedData = favouriteList?.some(favouriteListed => favouriteListed.name === currentWeatherListData.name);
 
-        if (!listedData) {
-            axios.post('https://radar-server-ten.vercel.app/favouriteList', currentWeatherListData)
-                .then(res => {
-                    if (res.data.acknowledged) {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Successfully added",
-                            text: `${currentWeatherListData.name} has added to the favourite list`
-                        });
-                        refetch();
-                    }
-                })
-        } else {
+            console.log(favouriteList.length)
+
+            if (!listedData) {
+                const response = await axios.post('https://radar-server-ten.vercel.app/favouriteList', currentWeatherListData);
+                if (response.data.acknowledged) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Successfully added",
+                        text: `${currentWeatherListData.name} has been added to the favourite list`
+                    });
+                    refetch();
+                }
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "This country has already been added"
+                });
+            }
+        } catch (error) {
+            console.error('Error:', error);
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "This country has already been added"
+                text: "Something went wrong! Please try again later."
             });
         }
-    }
+    };
 
     const handleListDelete = (_id) => {
         Swal.fire({
@@ -120,9 +129,9 @@ const WeatherDashboard = () => {
                     forecastWeather={forecastWeather}
                 />
             )}
-            <FavouriteCity
+            {favouriteList?.length !== 0 && <FavouriteCity
                 handleListDelete={handleListDelete}
-            ></FavouriteCity>
+            ></FavouriteCity>}
         </div>
     );
 };
