@@ -17,14 +17,14 @@ const WeatherDashboard = () => {
     const weatherData = async (city) => {
         try {
             const currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${api_key}&units=metric`;
-            const forecastWeatherURL = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${api_key}`;
+            const forecastWeatherURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${api_key}`;
 
             const currentWeatherResponse = await axios.get(currentWeatherURL);
             setCurrentWeather(currentWeatherResponse.data);
 
             const forecastWeatherResponse = await axios.get(forecastWeatherURL);
 
-            const dailyForecast = forecastWeatherResponse.data.list.filter((entries, index) => index % 8 === 0);
+            const dailyForecast = forecastWeatherResponse.data.list.filter((entry, index) => index % 8 === 0);
             setForecastWeather(dailyForecast);
         } catch (error) {
             Swal.fire({
