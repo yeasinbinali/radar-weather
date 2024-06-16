@@ -12,7 +12,7 @@ const WeatherDashboard = () => {
     const [currentCity, setCurrentCity] = useState('');
     const [currentWeather, setCurrentWeather] = useState(null);
     const [forecastWeather, setForecastWeather] = useState([]);
-    const api_key = `9d4f183c0f4904ffa238af96cafbb11d`;
+    const api_key = `${import.meta.env.VITE_API_KEY}`;
 
     const weatherData = async (city) => {
         try {
